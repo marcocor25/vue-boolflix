@@ -42,7 +42,19 @@ ul {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
   color: #f5f5f5;
   background: #333;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 5px;
+  background: #222;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #555;
 }
 </style>

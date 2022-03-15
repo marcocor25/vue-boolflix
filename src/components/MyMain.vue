@@ -4,65 +4,51 @@
       <img src="../assets/img/Boolflix.svg" />
     </figure>
     <div class="input-wrapper">
-      <input type="search" placeholder="Cerca film e serie tv..." />
-      <button>Cerca</button>
+      <input
+        type="search"
+        placeholder="Cerca film e serie tv..."
+        @keyup.enter="cercaFilm"
+        v-model="search"
+      />
+      <button @click="cercaFilm()">Cerca</button>
     </div>
     <ul class="film-container">
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
-      <li>Test</li>
+      <li v-for="element in movies" :key="element.id">
+        {{ element.title }}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "MyMain",
+  data() {
+    return {
+      baseURL: "https://api.themoviedb.org/3",
+      search: "",
+      movies: [],
+    };
+  },
+  methods: {
+    cercaFilm: function () {
+      axios
+        .get(`${this.baseURL}/search/movie`, {
+          params: {
+            api_key: "9857cfb37fc41b760e69c70f6d75b517",
+            query: this.search,
+            language: "it-IT",
+          },
+        })
+        .then((res) => {
+          this.movies = res.data.results;
+        });
+
+      this.search = "";
+    },
+  },
 };
 </script>
 
@@ -113,8 +99,20 @@ export default {
 
   .film-container {
     width: 500px;
+    padding-right: 10px;
     overflow: auto;
-    border: 2px dashed blue;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    li {
+      flex-shrink: 0;
+      height: 100px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #555;
+      background: #222;
+    }
   }
 }
 </style>
