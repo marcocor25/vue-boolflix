@@ -44,7 +44,7 @@ ul {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   color: #f5f5f5;
-  background: #333;
+  background: #141414;
 }
 
 ::-webkit-scrollbar {

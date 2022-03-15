@@ -10,17 +10,22 @@
       <input
         type="search"
         placeholder="Cerca film e serie tv..."
-        @keyup.enter="cercaFilm"
+        @keyup.enter="cercaFilm(), cercaSerie()"
         v-model="search"
       />
-      <button @click="cercaFilm()">Cerca</button>
+      <button @click="cercaFilm(), cercaSerie()">Cerca</button>
     </div>
-    <!-- CONTAINER LISTA -->
-    <ul class="film-container">
-      <!-- LIST ITEM -->
+    <!-- CONTAINER LISTE -->
+    <ul class="list-container">
+      <!-- LISTA FILM -->
       <li v-for="movie in movies" :key="movie.id">
-        <!-- TITOLO FILM -->
-        <h3>{{ movie.title }}</h3>
+        <!-- WRAPPER TITOLI FILM -->
+        <div class="title-wrapper">
+          <!-- TITOLO -->
+          <h3>{{ movie.title }}</h3>
+          <!-- BADGE -->
+          <span class="badge">Film</span>
+        </div>
         <!-- INFO-BOX -->
         <div class="info-box">
           <p>Titolo originale: {{ movie.original_title }}</p>
@@ -34,8 +39,40 @@
           <p v-else-if="movie.original_language == 'en'">
             Lingua originale: 🇬🇧
           </p>
+          <p v-else-if="movie.original_language == 'de'">
+            Lingua originale: 🇩🇪
+          </p>
           <p v-else>Lingua originale: {{ movie.original_language }}</p>
           <p>Voto: {{ movie.vote_average }}</p>
+        </div>
+      </li>
+      <!-- LISTA SERIE -->
+      <li v-for="series in tvSerires" :key="series.id">
+        <!-- WRAPPER TITOLI SERIE TV -->
+        <div class="title-wrapper">
+          <!-- TITOLO -->
+          <h3>{{ series.name }}</h3>
+          <!-- BADGE -->
+          <span class="badge">Serie TV</span>
+        </div>
+        <!-- INFO-BOX -->
+        <div class="info-box">
+          <p>Titolo originale: {{ series.original_name }}</p>
+          <p v-if="series.original_language == 'it'">Lingua originale: 🇮🇹</p>
+          <p v-else-if="series.original_language == 'fr'">
+            Lingua originale: 🇫🇷
+          </p>
+          <p v-else-if="series.original_language == 'es'">
+            Lingua originale: 🇪🇸
+          </p>
+          <p v-else-if="series.original_language == 'en'">
+            Lingua originale: 🇬🇧
+          </p>
+          <p v-else-if="series.original_language == 'de'">
+            Lingua originale: 🇩🇪
+          </p>
+          <p v-else>Lingua originale: {{ series.original_language }}</p>
+          <p>Voto: {{ series.vote_average }}</p>
         </div>
       </li>
     </ul>
@@ -52,6 +89,7 @@ export default {
       baseURL: "https://api.themoviedb.org/3",
       search: "",
       movies: [],
+      tvSerires: [],
     };
   },
   methods: {
@@ -66,6 +104,25 @@ export default {
         })
         .then((res) => {
           this.movies = res.data.results;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    cercaSerie: function () {
+      axios
+        .get(`${this.baseURL}/search/tv`, {
+          params: {
+            api_key: "9857cfb37fc41b760e69c70f6d75b517",
+            query: this.search,
+            language: "it-IT",
+          },
+        })
+        .then((res) => {
+          this.tvSerires = res.data.results;
+        })
+        .catch((err) => {
+          console.log(err.response);
         });
 
       this.search = "";
@@ -118,7 +175,7 @@ export default {
     }
   }
 
-  .film-container {
+  .list-container {
     width: 500px;
     padding-right: 10px;
     overflow: auto;
@@ -134,8 +191,19 @@ export default {
       border: 1px solid #555;
       background: #222;
 
-      h3 {
-        border-bottom: 1px solid #555;
+      .title-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid #d81f26;
+
+        .badge {
+          padding: 0 5px;
+          font-size: 12px;
+          border-radius: 5px;
+          cursor: default;
+          background: #d81f26;
+        }
       }
 
       .info-box {
