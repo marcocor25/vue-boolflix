@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld />
+    <MyMain />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import MyMain from "./components/MyMain.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    MyMain,
   },
 };
 </script>
@@ -22,10 +22,27 @@ export default {
   box-sizing: border-box;
 }
 
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+ul {
+  list-style: none;
+}
+
 #app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #f5f5f5;
+  background: #333;
 }
 </style>
