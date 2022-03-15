@@ -1,8 +1,11 @@
 <template>
+  <!-- MAIN CONTAINER -->
   <div class="container">
+    <!-- LOGO -->
     <figure class="logo">
       <img src="../assets/img/Boolflix.svg" />
     </figure>
+    <!-- INPUT -->
     <div class="input-wrapper">
       <input
         type="search"
@@ -12,24 +15,28 @@
       />
       <button @click="cercaFilm()">Cerca</button>
     </div>
+    <!-- CONTAINER LISTA -->
     <ul class="film-container">
+      <!-- LIST ITEM -->
       <li v-for="movie in movies" :key="movie.id">
-        <h3>Titolo: {{ movie.title }}</h3>
-        <p class="original-title">
-          Titolo originale: {{ movie.original_title }}
-        </p>
-        <p v-if="movie.original_language == 'it'" class="lang">Lingua: 🇮🇹</p>
-        <p v-else-if="movie.original_language == 'fr'" class="lang">
-          Lingua: 🇫🇷
-        </p>
-        <p v-else-if="movie.original_language == 'es'" class="lang">
-          Lingua: 🇪🇸
-        </p>
-        <p v-else-if="movie.original_language == 'en'" class="lang">
-          Lingua: 🇬🇧
-        </p>
-        <p v-else class="lang">Lingua: {{ movie.original_language }}</p>
-        <p class="vote">Voto: {{ movie.vote_average }}</p>
+        <!-- TITOLO FILM -->
+        <h3>{{ movie.title }}</h3>
+        <!-- INFO-BOX -->
+        <div class="info-box">
+          <p>Titolo originale: {{ movie.original_title }}</p>
+          <p v-if="movie.original_language == 'it'">Lingua originale: 🇮🇹</p>
+          <p v-else-if="movie.original_language == 'fr'">
+            Lingua originale: 🇫🇷
+          </p>
+          <p v-else-if="movie.original_language == 'es'">
+            Lingua originale: 🇪🇸
+          </p>
+          <p v-else-if="movie.original_language == 'en'">
+            Lingua originale: 🇬🇧
+          </p>
+          <p v-else>Lingua originale: {{ movie.original_language }}</p>
+          <p>Voto: {{ movie.vote_average }}</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -121,11 +128,19 @@ export default {
 
     li {
       flex-shrink: 0;
-      height: 100px;
+      min-height: 100px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #555;
       background: #222;
+
+      h3 {
+        border-bottom: 1px solid #555;
+      }
+
+      .info-box {
+        padding-top: 5px;
+      }
     }
   }
 }
