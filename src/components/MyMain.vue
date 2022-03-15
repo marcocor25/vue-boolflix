@@ -13,8 +13,23 @@
       <button @click="cercaFilm()">Cerca</button>
     </div>
     <ul class="film-container">
-      <li v-for="element in movies" :key="element.id">
-        {{ element.title }}
+      <li v-for="movie in movies" :key="movie.id">
+        <h3>Titolo: {{ movie.title }}</h3>
+        <p class="original-title">
+          Titolo originale: {{ movie.original_title }}
+        </p>
+        <p v-if="movie.original_language == 'it'" class="lang">Lingua: 🇮🇹</p>
+        <p v-else-if="movie.original_language == 'fr'" class="lang">
+          Lingua: 🇫🇷
+        </p>
+        <p v-else-if="movie.original_language == 'es'" class="lang">
+          Lingua: 🇪🇸
+        </p>
+        <p v-else-if="movie.original_language == 'en'" class="lang">
+          Lingua: 🇬🇧
+        </p>
+        <p v-else class="lang">Lingua: {{ movie.original_language }}</p>
+        <p class="vote">Voto: {{ movie.vote_average }}</p>
       </li>
     </ul>
   </div>
@@ -62,7 +77,6 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  border: 2px dashed yellow;
 
   .logo {
     width: 200px;
@@ -108,7 +122,7 @@ export default {
     li {
       flex-shrink: 0;
       height: 100px;
-      padding: 5px;
+      padding: 10px;
       border-radius: 5px;
       border: 1px solid #555;
       background: #222;
