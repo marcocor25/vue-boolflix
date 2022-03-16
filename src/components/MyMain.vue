@@ -63,6 +63,8 @@
                 &starf;
               </p>
             </div>
+            <!-- OVERVIEW -->
+            <p>Trama: {{ movie.overview }}</p>
           </div>
         </div>
       </li>
@@ -110,6 +112,8 @@
                 &starf;
               </p>
             </div>
+            <!-- OVERVIEW -->
+            <p>Trama: {{ series.overview }}</p>
           </div>
         </div>
       </li>
@@ -291,7 +295,9 @@ export default {
       }
 
       .info-box {
+        height: 86%;
         padding-top: 5px;
+        overflow: auto;
       }
 
       .votes {

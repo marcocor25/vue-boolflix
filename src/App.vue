@@ -48,12 +48,10 @@ ul {
 
 ::-webkit-scrollbar {
   width: 8px;
-  border-radius: 5px;
   background: #222;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: #555;
+  background: #d81f26;
 }
 </style>
