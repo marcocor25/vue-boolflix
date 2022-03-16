@@ -52,7 +52,17 @@
               Lingua originale: 🇩🇪
             </p>
             <p v-else>Lingua originale: {{ movie.original_language }}</p>
-            <p>Voto: {{ movie.vote_average }}</p>
+            <!-- STELLE VOTI -->
+            <div class="votes">
+              Voto:
+              <p
+                :class="i < catchVoteMovie(movie) ? 'stars' : ''"
+                v-for="(element, i) in 5"
+                :key="i"
+              >
+                &starf;
+              </p>
+            </div>
           </div>
         </div>
       </li>
@@ -89,7 +99,17 @@
               Lingua originale: 🇩🇪
             </p>
             <p v-else>Lingua originale: {{ series.original_language }}</p>
-            <p>Voto: {{ series.vote_average }}</p>
+            <!-- STELLE VOTI -->
+            <div class="votes">
+              Voto:
+              <p
+                :class="i < catchVoteSeries(series) ? 'stars' : ''"
+                v-for="(element, i) in 5"
+                :key="i"
+              >
+                &starf;
+              </p>
+            </div>
           </div>
         </div>
       </li>
@@ -128,6 +148,7 @@ export default {
           console.log(err.response);
         });
     },
+
     cercaSerie: function () {
       axios
         .get(`${this.baseURL}/search/tv`, {
@@ -144,6 +165,14 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
+    },
+
+    catchVoteMovie: function (movie) {
+      return Math.ceil(movie.vote_average / 2);
+    },
+
+    catchVoteSeries: function (series) {
+      return Math.ceil(series.vote_average / 2);
     },
   },
 };
@@ -246,7 +275,9 @@ export default {
       .title-wrapper {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
+        gap: 3px;
+        padding-bottom: 5px;
         border-bottom: 1px solid #d81f26;
 
         .badge {
@@ -261,6 +292,16 @@ export default {
 
       .info-box {
         padding-top: 5px;
+      }
+
+      .votes {
+        display: flex;
+        align-items: baseline;
+        gap: 3px;
+
+        .stars {
+          color: #d81f26;
+        }
       }
     }
   }
