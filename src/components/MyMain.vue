@@ -21,60 +21,66 @@
     <ul class="list-container">
       <!-- LISTA FILM -->
       <li v-for="movie in movies" :key="movie.id">
-        <!-- WRAPPER TITOLI FILM -->
-        <div class="title-wrapper">
-          <!-- TITOLO -->
-          <h3>{{ movie.title }}</h3>
-          <!-- BADGE -->
-          <span class="badge">Film</span>
-        </div>
-        <!-- INFO-BOX -->
-        <div class="info-box">
-          <p>Titolo originale: {{ movie.original_title }}</p>
-          <p v-if="movie.original_language == 'it'">Lingua originale: 🇮🇹</p>
-          <p v-else-if="movie.original_language == 'fr'">
-            Lingua originale: 🇫🇷
-          </p>
-          <p v-else-if="movie.original_language == 'es'">
-            Lingua originale: 🇪🇸
-          </p>
-          <p v-else-if="movie.original_language == 'en'">
-            Lingua originale: 🇬🇧
-          </p>
-          <p v-else-if="movie.original_language == 'de'">
-            Lingua originale: 🇩🇪
-          </p>
-          <p v-else>Lingua originale: {{ movie.original_language }}</p>
-          <p>Voto: {{ movie.vote_average }}</p>
+        <!-- INFO-BOX IN HOVER -->
+        <div class="hover-info">
+          <!-- WRAPPER TITOLI FILM -->
+          <div class="title-wrapper">
+            <!-- TITOLO -->
+            <h3>{{ movie.title }}</h3>
+            <!-- BADGE -->
+            <span class="badge">Film</span>
+          </div>
+          <!-- INFO-BOX -->
+          <div class="info-box">
+            <p>Titolo originale: {{ movie.original_title }}</p>
+            <p v-if="movie.original_language == 'it'">Lingua originale: 🇮🇹</p>
+            <p v-else-if="movie.original_language == 'fr'">
+              Lingua originale: 🇫🇷
+            </p>
+            <p v-else-if="movie.original_language == 'es'">
+              Lingua originale: 🇪🇸
+            </p>
+            <p v-else-if="movie.original_language == 'en'">
+              Lingua originale: 🇬🇧
+            </p>
+            <p v-else-if="movie.original_language == 'de'">
+              Lingua originale: 🇩🇪
+            </p>
+            <p v-else>Lingua originale: {{ movie.original_language }}</p>
+            <p>Voto: {{ movie.vote_average }}</p>
+          </div>
         </div>
       </li>
       <!-- LISTA SERIE -->
       <li v-for="series in tvSerires" :key="series.id">
-        <!-- WRAPPER TITOLI SERIE TV -->
-        <div class="title-wrapper">
-          <!-- TITOLO -->
-          <h3>{{ series.name }}</h3>
-          <!-- BADGE -->
-          <span class="badge">Serie TV</span>
-        </div>
-        <!-- INFO-BOX -->
-        <div class="info-box">
-          <p>Titolo originale: {{ series.original_name }}</p>
-          <p v-if="series.original_language == 'it'">Lingua originale: 🇮🇹</p>
-          <p v-else-if="series.original_language == 'fr'">
-            Lingua originale: 🇫🇷
-          </p>
-          <p v-else-if="series.original_language == 'es'">
-            Lingua originale: 🇪🇸
-          </p>
-          <p v-else-if="series.original_language == 'en'">
-            Lingua originale: 🇬🇧
-          </p>
-          <p v-else-if="series.original_language == 'de'">
-            Lingua originale: 🇩🇪
-          </p>
-          <p v-else>Lingua originale: {{ series.original_language }}</p>
-          <p>Voto: {{ series.vote_average }}</p>
+        <!-- INFO-BOX IN HOVER -->
+        <div class="hover-info">
+          <!-- WRAPPER TITOLI SERIE TV -->
+          <div class="title-wrapper">
+            <!-- TITOLO -->
+            <h3>{{ series.name }}</h3>
+            <!-- BADGE -->
+            <span class="badge">Serie TV</span>
+          </div>
+          <!-- INFO-BOX -->
+          <div class="info-box">
+            <p>Titolo originale: {{ series.original_name }}</p>
+            <p v-if="series.original_language == 'it'">Lingua originale: 🇮🇹</p>
+            <p v-else-if="series.original_language == 'fr'">
+              Lingua originale: 🇫🇷
+            </p>
+            <p v-else-if="series.original_language == 'es'">
+              Lingua originale: 🇪🇸
+            </p>
+            <p v-else-if="series.original_language == 'en'">
+              Lingua originale: 🇬🇧
+            </p>
+            <p v-else-if="series.original_language == 'de'">
+              Lingua originale: 🇩🇪
+            </p>
+            <p v-else>Lingua originale: {{ series.original_language }}</p>
+            <p>Voto: {{ series.vote_average }}</p>
+          </div>
         </div>
       </li>
     </ul>
@@ -106,6 +112,7 @@ export default {
         })
         .then((res) => {
           this.movies = res.data.results;
+          this.search = "";
         })
         .catch((err) => {
           console.log(err.response);
@@ -122,12 +129,11 @@ export default {
         })
         .then((res) => {
           this.tvSerires = res.data.results;
+          this.search = "";
         })
         .catch((err) => {
           console.log(err.response);
         });
-
-      this.search = "";
     },
   },
 };
@@ -156,12 +162,13 @@ export default {
     }
 
     .input-wrapper {
+      width: 30vw;
       height: 30px;
       display: flex;
       gap: 10px;
 
       input {
-        width: 250px;
+        width: 100%;
         padding: 0 5px;
         border-radius: 5px;
         border: 1px solid #555;
@@ -186,21 +193,31 @@ export default {
   .list-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px;
 
     li {
-      width: calc((100% / 4) - 20px);
-      min-height: 180px;
-      padding: 10px;
-      border-radius: 5px;
+      width: calc((100% / 4) - 10px);
+      min-height: 400px;
       border: 1px solid #555;
       cursor: pointer;
       transition: 200ms linear;
-      background: #222;
 
       &:hover {
         transform: scale(0.97);
+      }
+
+      .hover-info {
+        height: 100%;
+        padding: 10px;
+        opacity: 0;
+        background: rgba($color: #000000, $alpha: 0.3);
+        transition: 200ms linear;
+      }
+
+      &:hover .hover-info {
+        opacity: 1;
       }
 
       .title-wrapper {
