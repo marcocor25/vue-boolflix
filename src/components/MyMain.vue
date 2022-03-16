@@ -21,6 +21,11 @@
     <ul class="list-container">
       <!-- LISTA FILM -->
       <li v-for="movie in movies" :key="movie.id">
+        <!-- COPERTINA FILM -->
+        <img
+          :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`"
+          :alt="movie.title"
+        />
         <!-- INFO-BOX IN HOVER -->
         <div class="hover-info">
           <!-- WRAPPER TITOLI FILM -->
@@ -53,6 +58,11 @@
       </li>
       <!-- LISTA SERIE -->
       <li v-for="series in tvSerires" :key="series.id">
+        <!-- COPERTINA SERIE -->
+        <img
+          :src="`https://image.tmdb.org/t/p/w342${series.poster_path}`"
+          :alt="series.name"
+        />
         <!-- INFO-BOX IN HOVER -->
         <div class="hover-info">
           <!-- WRAPPER TITOLI SERIE TV -->
@@ -194,25 +204,38 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    padding: 40px;
+    gap: 15px;
+    padding: 30px;
 
     li {
-      width: calc((100% / 4) - 10px);
+      width: calc((100% / 5) - 15px);
       min-height: 400px;
       border: 1px solid #555;
       cursor: pointer;
+      background-image: url(../assets/img/not-found.png);
+      background-position: center;
+      background-size: cover;
       transition: 200ms linear;
+      position: relative;
+
+      img {
+        object-fit: cover;
+        object-position: center;
+      }
 
       &:hover {
         transform: scale(0.97);
       }
 
       .hover-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
         padding: 10px;
         opacity: 0;
-        background: rgba($color: #000000, $alpha: 0.3);
+        background: rgba($color: #000000, $alpha: 0.8);
         transition: 200ms linear;
       }
 
@@ -240,6 +263,29 @@ export default {
         padding-top: 5px;
       }
     }
+  }
+}
+
+// VIEWPORT:
+
+// LARGE
+@media all and (max-width: 992px) {
+  li {
+    width: calc((100% / 3) - 15px) !important;
+  }
+}
+
+// MEDIUM
+@media all and (max-width: 768px) {
+  li {
+    width: calc((100% / 2) - 15px) !important;
+  }
+}
+
+// SMALL
+@media all and (max-width: 576px) {
+  li {
+    width: calc((100% / 1) - 15px) !important;
   }
 }
 </style>
