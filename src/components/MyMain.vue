@@ -64,7 +64,11 @@
               </p>
             </div>
             <!-- OVERVIEW -->
-            <p>Trama: {{ movie.overview }}</p>
+            <p>
+              Trama:
+              <span v-if="movie.overview == ''">n/d</span>
+              {{ movie.overview }}
+            </p>
           </div>
         </div>
       </li>
@@ -113,7 +117,11 @@
               </p>
             </div>
             <!-- OVERVIEW -->
-            <p>Trama: {{ series.overview }}</p>
+            <p>
+              Trama:
+              <span v-if="series.overview == ''">n/d</span>
+              {{ movie.overview }}
+            </p>
           </div>
         </div>
       </li>
