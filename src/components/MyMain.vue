@@ -37,24 +37,26 @@
           </div>
           <!-- INFO-BOX -->
           <div class="info-box">
-            <p>Titolo originale: {{ movie.original_title }}</p>
+            <p><strong>Titolo originale: </strong>{{ movie.original_title }}</p>
             <p v-if="movie.original_language == 'it'">Lingua originale: 🇮🇹</p>
             <p v-else-if="movie.original_language == 'fr'">
-              Lingua originale: 🇫🇷
+              <strong>Lingua originale: </strong>🇫🇷
             </p>
             <p v-else-if="movie.original_language == 'es'">
-              Lingua originale: 🇪🇸
+              <strong>Lingua originale: </strong>🇪🇸
             </p>
             <p v-else-if="movie.original_language == 'en'">
-              Lingua originale: 🇬🇧
+              <strong>Lingua originale: </strong>🇬🇧
             </p>
             <p v-else-if="movie.original_language == 'de'">
-              Lingua originale: 🇩🇪
+              <strong>Lingua originale: </strong>🇩🇪
             </p>
-            <p v-else>Lingua originale: {{ movie.original_language }}</p>
+            <p v-else>
+              <strong>Lingua originale: </strong>{{ movie.original_language }}
+            </p>
             <!-- STELLE VOTI -->
             <div class="votes">
-              Voto:
+              <strong>Voto: </strong>
               <p
                 :class="i < catchVoteMovie(movie) ? 'stars' : ''"
                 v-for="(element, i) in 5"
@@ -65,7 +67,7 @@
             </div>
             <!-- OVERVIEW -->
             <p>
-              Trama:
+              <strong>Trama: </strong>
               <span v-if="movie.overview == ''">n/d</span>
               {{ movie.overview }}
             </p>
@@ -90,24 +92,26 @@
           </div>
           <!-- INFO-BOX -->
           <div class="info-box">
-            <p>Titolo originale: {{ series.original_name }}</p>
+            <p><strong>Titolo originale: </strong>{{ series.original_name }}</p>
             <p v-if="series.original_language == 'it'">Lingua originale: 🇮🇹</p>
             <p v-else-if="series.original_language == 'fr'">
-              Lingua originale: 🇫🇷
+              <strong>Lingua originale: </strong>🇫🇷
             </p>
             <p v-else-if="series.original_language == 'es'">
-              Lingua originale: 🇪🇸
+              <strong>Lingua originale: </strong>🇪🇸
             </p>
             <p v-else-if="series.original_language == 'en'">
-              Lingua originale: 🇬🇧
+              <strong>Lingua originale: </strong>🇬🇧
             </p>
             <p v-else-if="series.original_language == 'de'">
-              Lingua originale: 🇩🇪
+              <strong>Lingua originale: </strong>🇩🇪
             </p>
-            <p v-else>Lingua originale: {{ series.original_language }}</p>
+            <p v-else>
+              <strong>Lingua originale: </strong>{{ series.original_language }}
+            </p>
             <!-- STELLE VOTI -->
             <div class="votes">
-              Voto:
+              <strong>Voto: </strong>
               <p
                 :class="i < catchVoteSeries(series) ? 'stars' : ''"
                 v-for="(element, i) in 5"
@@ -118,9 +122,9 @@
             </div>
             <!-- OVERVIEW -->
             <p>
-              Trama:
+              <strong>Trama: </strong>
               <span v-if="series.overview == ''">n/d</span>
-              {{ movie.overview }}
+              {{ series.overview }}
             </p>
           </div>
         </div>
@@ -285,11 +289,11 @@ export default {
       }
 
       .title-wrapper {
+        height: 55px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 3px;
-        padding-bottom: 5px;
         border-bottom: 1px solid #d81f26;
 
         .badge {
@@ -303,7 +307,7 @@ export default {
       }
 
       .info-box {
-        height: 86%;
+        height: calc(100% - 55px);
         padding-top: 5px;
         overflow: auto;
       }
