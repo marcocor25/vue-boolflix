@@ -1,19 +1,21 @@
 <template>
   <!-- MAIN CONTAINER -->
   <div class="container">
-    <!-- LOGO -->
-    <figure class="logo">
-      <img src="../assets/img/Boolflix.svg" />
-    </figure>
-    <!-- INPUT -->
-    <div class="input-wrapper">
-      <input
-        type="search"
-        placeholder="Cerca film e serie tv..."
-        @keyup.enter="cercaFilm(), cercaSerie()"
-        v-model="search"
-      />
-      <button @click="cercaFilm(), cercaSerie()">Cerca</button>
+    <div class="header">
+      <!-- LOGO -->
+      <figure class="logo">
+        <img src="../assets/img/Boolflix.svg" />
+      </figure>
+      <!-- INPUT -->
+      <div class="input-wrapper">
+        <input
+          type="search"
+          placeholder="Cerca tra i film e le serie tv..."
+          @keyup.enter="cercaFilm(), cercaSerie()"
+          v-model="search"
+        />
+        <button @click="cercaFilm(), cercaSerie()">Cerca</button>
+      </div>
     </div>
     <!-- CONTAINER LISTE -->
     <ul class="list-container">
@@ -134,62 +136,71 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .container {
-  width: 60vw;
-  height: 100vh;
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
 
-  .logo {
-    width: 200px;
-    filter: drop-shadow(3px 3px 1px black);
-  }
-
-  .input-wrapper {
-    width: 500px;
+  .header {
+    min-height: 60px;
+    padding: 0 60px;
     display: flex;
-    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: #0a0a0a;
 
-    input {
-      flex-grow: 1;
-      height: 30px;
-      padding: 0 5px;
-      border-radius: 5px;
-      border: 1px solid #555;
-      color: currentColor;
-      background: #222;
-
-      &:focus-visible {
-        outline: none;
-      }
+    .logo {
+      width: 100px;
     }
 
-    button {
-      padding: 0 10px;
-      border-radius: 5px;
-      border: 1px solid #555;
-      color: currentColor;
-      background: #222;
+    .input-wrapper {
+      height: 30px;
+      display: flex;
+      gap: 10px;
+
+      input {
+        width: 250px;
+        padding: 0 5px;
+        border-radius: 5px;
+        border: 1px solid #555;
+        color: currentColor;
+        background: transparent;
+
+        &:focus-visible {
+          outline: none;
+        }
+      }
+
+      button {
+        padding: 0 10px;
+        border-radius: 5px;
+        border: 1px solid #555;
+        color: currentColor;
+        background: transparent;
+      }
     }
   }
 
   .list-container {
-    width: 500px;
-    padding-right: 10px;
-    overflow: auto;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
+    padding: 20px;
 
     li {
-      flex-shrink: 0;
-      min-height: 100px;
+      width: calc((100% / 4) - 20px);
+      min-height: 180px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #555;
+      cursor: pointer;
+      transition: 200ms linear;
       background: #222;
+
+      &:hover {
+        transform: scale(0.97);
+      }
 
       .title-wrapper {
         display: flex;
@@ -198,10 +209,12 @@ export default {
         border-bottom: 1px solid #d81f26;
 
         .badge {
+          flex-shrink: 0;
           padding: 0 5px;
           font-size: 12px;
           border-radius: 5px;
-          cursor: default;
+          user-select: none;
+          box-shadow: 1px 1px 2px #0a0a0a;
           background: #d81f26;
         }
       }
