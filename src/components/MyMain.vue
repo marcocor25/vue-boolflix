@@ -148,6 +148,7 @@ export default {
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 1;
     background: #0a0a0a;
 
     .logo {
@@ -214,7 +215,6 @@ export default {
           font-size: 12px;
           border-radius: 5px;
           user-select: none;
-          box-shadow: 1px 1px 2px #0a0a0a;
           background: #d81f26;
         }
       }
