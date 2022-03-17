@@ -4,7 +4,11 @@
     <div class="header">
       <!-- LOGO -->
       <figure class="logo">
-        <img src="../assets/img/Boolflix.svg" />
+        <img src="../assets/img/logo.png" />
+      </figure>
+      <!-- LOGO SMALL -->
+      <figure class="logo-small">
+        <img src="../assets/img/logo-small.png" />
       </figure>
       <!-- INPUT -->
       <div class="input-wrapper">
@@ -208,7 +212,7 @@ export default {
 
   .header {
     min-height: 60px;
-    padding: 0 60px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -222,8 +226,13 @@ export default {
       width: 100px;
     }
 
+    .logo-small {
+      display: none;
+      width: 70px;
+    }
+
     .input-wrapper {
-      width: 30vw;
+      width: 350px;
       height: 30px;
       display: flex;
       gap: 10px;
@@ -309,15 +318,14 @@ export default {
         justify-content: space-between;
         align-items: center;
         gap: 20px;
-        border-bottom: 1px solid #d81f26;
+        border-bottom: 1px solid #ff1a0c;
 
         .badge {
           flex-shrink: 0;
           padding: 0 5px;
           font-size: 12px;
           border-radius: 5px;
-          user-select: none;
-          background: #d81f26;
+          background: #ff1a0c;
         }
       }
 
@@ -333,7 +341,7 @@ export default {
         gap: 3px;
 
         .stars {
-          color: #d81f26;
+          color: #ff1a0c;
         }
       }
     }
@@ -360,6 +368,18 @@ export default {
 @media all and (max-width: 576px) {
   li {
     width: calc((100% / 1) - 15px) !important;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .logo-small {
+    display: block !important;
+  }
+
+  .input-wrapper {
+    width: 270px !important;
   }
 }
 </style>

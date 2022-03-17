@@ -26,7 +26,6 @@ img {
   display: block;
   width: 100%;
   height: 100%;
-  user-select: none;
   -webkit-user-drag: none;
 }
 
@@ -43,6 +42,7 @@ ul {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   color: #f5f5f5;
+  user-select: none;
   background: #141414;
 }
 
@@ -52,6 +52,6 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d81f26;
+  background: #ff1a0c;
 }
 </style>
