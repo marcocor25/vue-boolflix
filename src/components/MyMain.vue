@@ -357,6 +357,10 @@ export default {
         filter: drop-shadow(4px 4px 1px #0a0a0a);
         color: #ff1a0c;
       }
+
+      p {
+        padding: 10px 0;
+      }
     }
 
     li {
@@ -456,6 +460,15 @@ export default {
 
 // SMALL
 @media all and (max-width: 576px) {
+  .header {
+    padding: 0 !important;
+    padding-right: 20px !important;
+  }
+
+  .default {
+    font-size: 16px !important;
+  }
+
   li {
     width: calc((100% / 1) - 15px) !important;
   }
