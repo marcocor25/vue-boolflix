@@ -1,15 +1,23 @@
 <template>
   <!-- MAIN CONTAINER -->
   <div class="container">
+    <!-- HEADER -->
     <div class="header">
-      <!-- LOGO -->
-      <figure class="logo">
-        <img src="../assets/img/logo.png" />
-      </figure>
-      <!-- LOGO SMALL -->
-      <figure class="logo-small">
-        <img src="../assets/img/logo-small.png" />
-      </figure>
+      <!-- LOGO & CATEGORY WRAPPER -->
+      <div class="logo-category-wrapper">
+        <!-- LOGO -->
+        <figure class="logo">
+          <img src="../assets/img/logo.png" />
+        </figure>
+        <!-- LOGO SMALL -->
+        <figure class="logo-small">
+          <img src="../assets/img/logo-small.png" />
+        </figure>
+        <div class="category-box">
+          <h3 @click="clickFilm()">Film</h3>
+          <h3 @click="clickSerie()">Serie TV</h3>
+        </div>
+      </div>
       <!-- INPUT -->
       <div class="input-wrapper">
         <input
@@ -23,6 +31,12 @@
     </div>
     <!-- CONTAINER LISTE -->
     <ul class="list-container">
+      <!-- DEFAULT MESSAGE -->
+      <div class="default" v-if="movies == '' && tvSerires == ''">
+        <h1>Benvenuto su Netflix!</h1>
+        <p>Effettua una ricerca per cominciare.</p>
+      </div>
+      <!-- CATEGORY - FILM -->
       <div class="category" v-if="movies != ''">
         <h1>Film</h1>
       </div>
@@ -81,6 +95,7 @@
           </div>
         </div>
       </li>
+      <!-- CATEGORY - SERIE TV -->
       <div class="category" v-if="tvSerires != ''">
         <h1>Serie TV</h1>
       </div>
@@ -193,6 +208,42 @@ export default {
         });
     },
 
+    clickFilm: function () {
+      axios
+        .get(`${this.baseURL}/search/movie`, {
+          params: {
+            api_key: "9857cfb37fc41b760e69c70f6d75b517",
+            query: "marvel",
+            language: "it-IT",
+          },
+        })
+        .then((res) => {
+          this.movies = res.data.results;
+          this.tvSerires.splice(this.tvSerires);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+
+    clickSerie: function () {
+      axios
+        .get(`${this.baseURL}/search/tv`, {
+          params: {
+            api_key: "9857cfb37fc41b760e69c70f6d75b517",
+            query: "casa",
+            language: "it-IT",
+          },
+        })
+        .then((res) => {
+          this.tvSerires = res.data.results;
+          this.movies.splice(this.movies);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+
     catchVoteMovie: function (movie) {
       return Math.ceil(movie.vote_average / 2);
     },
@@ -214,21 +265,44 @@ export default {
     min-height: 60px;
     padding: 0 40px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     left: 0;
     z-index: 1;
+    box-shadow: 1px 1px 3px #000000;
     background: #0a0a0a;
 
-    .logo {
-      width: 100px;
-    }
+    .logo-category-wrapper {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      gap: 40px;
 
-    .logo-small {
-      display: none;
-      width: 70px;
+      .logo {
+        width: 100px;
+      }
+
+      .logo-small {
+        display: none;
+        width: 70px;
+      }
+
+      .category-box {
+        display: flex;
+        gap: 20px;
+
+        h3 {
+          font-weight: lighter;
+          cursor: pointer;
+          color: #c1c1c1;
+
+          &:hover {
+            color: currentColor;
+            text-decoration: underline;
+          }
+        }
+      }
     }
 
     .input-wrapper {
@@ -268,21 +342,33 @@ export default {
     padding: 0 30px;
     padding-bottom: 30px;
 
-    .category {
+    .category,
+    .default {
       width: 100%;
       padding: 0 10px;
       padding-top: 30px;
       font-size: 20px;
     }
 
+    .default {
+      color: #c1c1c1;
+
+      h1 {
+        filter: drop-shadow(4px 4px 1px #0a0a0a);
+        color: #ff1a0c;
+      }
+    }
+
     li {
       width: calc((100% / 5) - 15px);
       min-height: 400px;
-      border: 1px solid #555;
+      border: 0.1px solid #555;
       cursor: pointer;
-      background-image: url(../assets/img/not-found.png);
+      background-color: #0a0a0a;
+      background-image: url(../assets/img/logo-small.png);
       background-position: center;
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
       transition: 200ms linear;
       position: relative;
 
@@ -362,6 +448,10 @@ export default {
   li {
     width: calc((100% / 2) - 15px) !important;
   }
+
+  .input-wrapper {
+    width: 220px !important;
+  }
 }
 
 // SMALL
@@ -370,16 +460,24 @@ export default {
     width: calc((100% / 1) - 15px) !important;
   }
 
-  .logo {
-    display: none;
-  }
+  .logo-category-wrapper {
+    gap: 10px !important;
 
-  .logo-small {
-    display: block !important;
+    .logo {
+      display: none;
+    }
+
+    .logo-small {
+      display: block !important;
+    }
   }
 
   .input-wrapper {
-    width: 270px !important;
+    width: 160px !important;
+
+    button {
+      display: none;
+    }
   }
 }
 </style>
