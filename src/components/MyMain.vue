@@ -19,6 +19,9 @@
     </div>
     <!-- CONTAINER LISTE -->
     <ul class="list-container">
+      <div class="category" v-if="movies != ''">
+        <h1>Film</h1>
+      </div>
       <!-- LISTA FILM -->
       <li v-for="movie in movies" :key="movie.id">
         <!-- COPERTINA FILM -->
@@ -74,6 +77,9 @@
           </div>
         </div>
       </li>
+      <div class="category" v-if="tvSerires != ''">
+        <h1>Serie TV</h1>
+      </div>
       <!-- LISTA SERIE -->
       <li v-for="series in tvSerires" :key="series.id">
         <!-- COPERTINA SERIE -->
@@ -250,7 +256,15 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    padding: 30px;
+    padding: 0 30px;
+    padding-bottom: 30px;
+
+    .category {
+      width: 100%;
+      padding: 0 10px;
+      padding-top: 30px;
+      font-size: 20px;
+    }
 
     li {
       width: calc((100% / 5) - 15px);
