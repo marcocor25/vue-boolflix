@@ -281,6 +281,7 @@ export default {
         padding: 10px;
         opacity: 0;
         background: rgba($color: #000000, $alpha: 0.8);
+        overflow: auto;
         transition: 200ms linear;
       }
 
@@ -289,11 +290,11 @@ export default {
       }
 
       .title-wrapper {
-        height: 55px;
+        padding: 20px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 3px;
+        gap: 20px;
         border-bottom: 1px solid #d81f26;
 
         .badge {
@@ -307,7 +308,6 @@ export default {
       }
 
       .info-box {
-        height: calc(100% - 55px);
         line-height: 22px;
         padding-top: 5px;
         overflow: auto;
