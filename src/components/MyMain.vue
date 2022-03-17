@@ -309,7 +309,7 @@ export default {
 
       .info-box {
         line-height: 22px;
-        padding-top: 5px;
+        padding-top: 10px;
         overflow: auto;
       }
 
